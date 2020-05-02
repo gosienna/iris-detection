@@ -1,0 +1,36 @@
+<!doctype html>
+<head>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.7.2"></script>
+
+<body>
+  <input id="json-upload" type="file" />
+  <input id="weights-upload" type="file" multiple/>
+  <img id='input' src="0057.jpg" height="200" width="300">
+  <button onclick="load_model()">Click me</button>
+  <button onclick="predict()">predict</button>
+  <script >
+
+
+  async function load_model(){
+
+     const jsonUpload = document.getElementById('json-upload');
+     const weightsUpload = document.getElementById('weights-upload');
+     console.log(weightsUpload.files.length)
+     const model = await tf.loadLayersModel(
+     tf.io.browserFiles([jsonUpload.files[0], weightsUpload.files[0],weightsUpload.files[1]])
+     );
+
+  }
+  async function predict(){
+
+  }
+
+  /*
+  async function load_model(){
+    const model=await tf.loadModel('file://model/model_50.jason')
+  }
+  */
+  load_model()
+  </script>
+</body>
