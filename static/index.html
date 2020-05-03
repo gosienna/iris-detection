@@ -3,14 +3,27 @@
 </head>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.7.2"></script>
 <body>
+  <button onclick="load_model()">load model</button>
+  <button id='predict' onclick="predict()" >predict</button><br>
   <img id='input' src="0057.JPG" height="200" width="300">
   <canvas id="output" width="300" height="200"></canvas>
-  <button onclick="load_model()">load model</button>
-  <button onclick="predict()">predict</button>
   <script >
   let model;
-  async function load_model(){
-     model = await tf.loadLayersModel('model/model.json');
+  document.getElementById('predict').style.visibility='hidden'
+  function load_model(){
+
+     function show_predict_button(){
+       console.log(document.getElementById('predict').style.visibility)
+       document.getElementById('predict').style.visibility='visible';
+
+     }
+     async function load(show_predict_button){ //use callback function, show predict button when model loading is completed
+       model = await tf.loadLayersModel('model/model.json');
+       console.log('model loading success!')
+       show_predict_button()
+     }
+     load(show_predict_button)
+
   }
 
   async function predict(){
